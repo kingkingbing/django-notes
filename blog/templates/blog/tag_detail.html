@@ -1,0 +1,25 @@
+{% if tag.parent_tag %}
+<p>父类别: </p>
+<li><a href="{% url 'blog:tag_detail' tag.parent_tag.pk %}">{{ tag.parent_tag.name }}</a></li>
+{% endif %}
+
+<p>当前类别: </p>
+<li><a href="{% url 'blog:tag_detail' tag.pk %}">{{ tag }}</a></li>
+
+{% with tag.tag_set.all as tags %}
+{% if tags %}
+<p>子类别: </p>
+{% for tag in tags %}
+<li> <a href="{% url 'blog:tag_detail' tag.pk %}">{{ tag.name }}</a></li>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% with tag.get_same_level_tag as tags %}
+{% if tags %}
+<p>当前目录级别：</p>
+{% for tag in tags %}
+<li><a href="{% url 'blog:tag_detail' tag.pk %}">{{ tag }}</a></li>
+{% endfor %}
+{% endif %}
+{% endwith %}

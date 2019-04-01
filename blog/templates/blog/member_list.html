@@ -1,0 +1,3 @@
+{% for member in member_list %}
+<li><a href="{% url 'blog:member_detail' member.pk %}">{{ member.name }}</a></li>
+{% endfor %}

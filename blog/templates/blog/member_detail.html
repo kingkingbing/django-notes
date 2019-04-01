@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>working</title>
+<style>
+.tree{ float:left; width:19%; border:1px solid #F00}
+.content{ float:right; width:80%; border:1px solid #000}
+</style>
+    </head>
+    <body>
+	<div class="tree">
+	    {% if member.parent_member %}
+	    <p>父类别: </p>
+	    <li><a href="{% url 'blog:member_detail' member.parent_member.pk %}">{{ member.parent_member.name }}</a></li>
+	    {% endif %}
+	    
+	    <p>当前类别: </p>
+	    <li><a href="{% url 'blog:member_detail' member.pk %}">{{ member }}</a></li>
+	    
+	    {% with member.member_set.all as members %}
+	    {% if members %}
+	    <p>子类别: </p>
+	    {% for member in members %}
+	    <li> <a href="{% url 'blog:member_detail' member.pk %}">{{ member.name }}</a></li>
+	    {% endfor %}
+	    {% endif %}
+	    {% endwith %}
+	    
+	    {% with member.get_same_level_member as members %}
+	    {% if members %}
+	    <p>当前目录级别：</p>
+	    {% for member in members %}
+	    <li><a href="{% url 'blog:member_detail' member.pk %}">{{ member }}</a></li>
+	    {% endfor %}
+	    {% endif %}
+	    {% endwith %}
+        </div>
+
+	<div content>
+	    <ul>Post：
+                {% for name in post..all %}
+		<li> <a href="{% url 'blog:post_detail' post.pk %}">{{ post.name }}</a> </li>
+                {% endfor %}
+            </ul>
+	</div>
+    </body>
+</html>
