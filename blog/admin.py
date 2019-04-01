@@ -1,16 +1,10 @@
 from django.contrib import admin
-
-# Register your models here.
-
 from .models import Post, Status, Member, Tag
-
-# Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ['name', 'created_time', 'status', 'deadline',]
 
-
-admin.site.register(Post, PostAdmin)
-admin.site.register(Tag, )
+admin.site.register(Post, PostAdmin,)
+admin.site.register(Tag,)
 admin.site.register(Member,)
-admin.site.register(Status)
+admin.site.register(Status,)
